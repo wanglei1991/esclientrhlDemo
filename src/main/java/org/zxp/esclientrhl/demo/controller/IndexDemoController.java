@@ -3,6 +3,7 @@ package org.zxp.esclientrhl.demo.controller;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.zxp.esclientrhl.demo.domain.IndexDemo;
 import org.zxp.esclientrhl.demo.repository.IndexDemoRepository;
@@ -79,10 +80,10 @@ public class IndexDemoController {
     }
 
 
-    @GetMapping("/demo/query2")
-    public List<IndexDemo> query2() throws Exception {
+    @GetMapping("/demo/query2/{id}")
+    public List<IndexDemo> query2(@PathVariable String id) throws Exception {
 
-        List<IndexDemo> search = indexDemoRepository.search(QueryBuilders.matchAllQuery());
+        List<IndexDemo> search = indexDemoRepository.search(QueryBuilders.termQuery("proposal_no", id));
         return search;
     }
 }
